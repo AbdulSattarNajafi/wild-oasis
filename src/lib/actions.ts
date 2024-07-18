@@ -5,6 +5,7 @@ import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
 import { redirect } from "next/navigation";
 import { getBookings } from "./data-service";
+import { Session } from "./types";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
@@ -15,7 +16,7 @@ export async function signOutAction() {
 }
 
 export async function updateGuest(formData: FormData) {
-  const session = await auth();
+  const session: Session | null = await auth();
 
   if (!session) throw new Error("You must be logged in");
 
@@ -39,11 +40,11 @@ export async function updateGuest(formData: FormData) {
 }
 
 export async function deleteBooking(id: number) {
-  const session = await auth();
+  const session: Session | null = await auth();
 
   if (!session) throw new Error("You must be logged in");
 
-  const guestBooking = await getBookings(session.user?.guestId);
+  const guestBooking = await getBookings(Number(session.user?.guestId));
   const guestBookingIds = guestBooking.map((booking) => booking.id);
 
   if (!guestBookingIds.includes(id)) {
@@ -62,10 +63,10 @@ export async function deleteBooking(id: number) {
 export async function updateBooking(formData: FormData) {
   const id = Number(formData.get("id"));
 
-  const session = await auth();
+  const session: Session | null = await auth();
   if (!session) throw new Error("You must be logged in");
 
-  const guestBooking = await getBookings(session.user?.guestId);
+  const guestBooking = await getBookings(Number(session.user?.guestId));
   const guestBookingIds = guestBooking.map((booking) => booking.id);
 
   if (!guestBookingIds.includes(id)) {
@@ -105,7 +106,7 @@ export async function createBooking(
   bookingData: bookingDataType,
   formData: FormData,
 ) {
-  const session = await auth();
+  const session: Session | null = await auth();
   if (!session) throw new Error("You must be logged in");
 
   const newBooking = {
