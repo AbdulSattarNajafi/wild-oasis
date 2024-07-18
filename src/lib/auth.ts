@@ -3,7 +3,7 @@ import Google from "next-auth/providers/google";
 import { createGuest, getGuest } from "./data-service";
 import { Session, User } from "./types";
 
-const authConfig = {
+const authConfig: any = {
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
