@@ -14,8 +14,6 @@ export default async function ProfilePage() {
 
   const guest = await getGuest(session?.user?.email ?? "");
 
-  console.log(guest);
-
   return (
     <div>
       <h2 className="mb-4 text-2xl font-semibold text-accent-400">

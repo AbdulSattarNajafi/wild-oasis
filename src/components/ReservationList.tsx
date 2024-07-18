@@ -1,14 +1,18 @@
 "use client";
 
-import { Booking } from "@/lib/types";
+import { Booking, Bookings } from "@/lib/types";
 import ReservationCard from "./ReservationCard";
 import { useOptimistic } from "react";
 import { deleteBooking } from "@/lib/actions";
 
-export default function ReservationList({ bookings }: { bookings: Booking[] }) {
+export default function ReservationList({
+  bookings,
+}: {
+  bookings: Bookings[];
+}) {
   const [optimisticBooking, optimisticDelete] = useOptimistic(
     bookings,
-    (curBooking: Booking[], bookingId: number) => {
+    (curBooking: Bookings[], bookingId: number) => {
       return curBooking.filter((booking) => booking.id !== bookingId);
     },
   );

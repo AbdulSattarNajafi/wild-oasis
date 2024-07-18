@@ -1,6 +1,7 @@
 import { eachDayOfInterval } from "date-fns";
 import { supabase } from "./supabase";
 import { notFound } from "next/navigation";
+import { Bookings } from "./types";
 
 /////////////
 // GET
@@ -77,6 +78,7 @@ export async function getBooking(id: number) {
   return data;
 }
 
+//: Promise<Bookings[]>
 export async function getBookings(guestId: number) {
   const { data, error, count } = await supabase
     .from("bookings")
@@ -88,10 +90,8 @@ export async function getBookings(guestId: number) {
     .order("startDate");
 
   if (error) {
-    console.error(error);
     throw new Error("Bookings could not get loaded");
   }
-
   return data;
 }
 

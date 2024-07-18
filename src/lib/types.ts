@@ -8,6 +8,7 @@ export interface Booking {
   numGuests: number;
   status: string;
   created_at: Date;
+  cabinId?: number;
   cabins: Cabin;
 }
 
@@ -20,8 +21,8 @@ export interface Bookings {
   numGuests: number;
   totalPrice: number;
   guestId: number;
-  cabinId: number;
-  cabins: { name: string; image: string };
+  cabinId?: number;
+  cabins: any;
 }
 
 export interface Cabin {

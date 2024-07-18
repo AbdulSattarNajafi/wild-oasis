@@ -18,7 +18,6 @@ type ReservationCardProps = {
 function ReservationCard({ booking, onDelete }: ReservationCardProps) {
   const {
     id,
-    guestId,
     startDate,
     endDate,
     numNights,
